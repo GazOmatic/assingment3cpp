@@ -1,5 +1,6 @@
 #include "PGMimageProcessor.h"
 #include <iostream>
+#include <queue>
 using namespace WRBGAR002;
 
 PGMimageProcessor::PGMimageProcessor()
@@ -81,8 +82,19 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
             inputImage[i] = 0;
         }
     }
+    print("Image has been thresholded...");
 
-    save_image("thresh.pgm", inputImage);
+    for (int x = 0; x < inputImage.width;++x)
+    {
+        for (int y = 0; y < inputImage.height; ++y)
+        {
+            if(inputImage(x,y) == 255)
+            {
+                search(x,y);
+            }
+        }
+        
+    }
 }
 int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize) {}
 
@@ -110,4 +122,23 @@ void PGMimageProcessor::save_image(const char *filename, const image &img)
     outfile.write((char *)img.pixels, img.width * img.height);
 
     outfile.close();
+}
+ConnectedComponent PGMimageProcessor::search(int startx, int starty)
+{
+    ConnectedComponent out;
+    
+    std::queue<std::pair<int,int>> toCheck;
+    
+    std::pair<int,int> current;
+    current.first = startx;
+    current.second = starty;
+    toCheck.push(current);
+    while(!toCheck.empty())
+    {
+
+    }
+
+
+    
+    
 }

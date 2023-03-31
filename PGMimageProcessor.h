@@ -86,5 +86,6 @@ namespace WRBGAR002
 
         void printComponentData(const ConnectedComponent &theComponent) const;
         void save_image(const char *filename, const image &img);
+        ConnectedComponent search(int startx, int starty);
     };
 }
