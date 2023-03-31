@@ -17,7 +17,8 @@ int main(int argc, char const *argv[])
         min = std::stoi(argv[2]);
     }
     h.extractComponents(thresh, min);
-    h.filterComponentBySize(20, 100);
+    h.filterComponentBySize(20, 5000);
+    h.writeComponents("test.pgm");
 
     print(h.components.size());
     return 0;
