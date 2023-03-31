@@ -57,6 +57,10 @@ struct image // Place to hold image
     {
         return pixels[y * width + x];
     }
+    unsigned char &operator()(std::pair<int, int> loc)
+    {
+        return pixels[loc.second * width + loc.first];
+    }
 };
 
 namespace WRBGAR002
@@ -87,5 +91,6 @@ namespace WRBGAR002
         void printComponentData(const ConnectedComponent &theComponent) const;
         void save_image(const char *filename, const image &img);
         ConnectedComponent search(int startx, int starty);
+        
     };
 }

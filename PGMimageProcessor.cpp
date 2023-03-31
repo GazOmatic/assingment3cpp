@@ -84,16 +84,15 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
     }
     print("Image has been thresholded...");
 
-    for (int x = 0; x < inputImage.width;++x)
+    for (int x = 0; x < inputImage.width; ++x)
     {
         for (int y = 0; y < inputImage.height; ++y)
         {
-            if(inputImage(x,y) == 255)
+            if (inputImage(x, y) == 255)
             {
-                search(x,y);
+                search(x, y);
             }
         }
-        
     }
 }
 int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize) {}
@@ -126,19 +125,42 @@ void PGMimageProcessor::save_image(const char *filename, const image &img)
 ConnectedComponent PGMimageProcessor::search(int startx, int starty)
 {
     ConnectedComponent out;
-    
-    std::queue<std::pair<int,int>> toCheck;
-    
-    std::pair<int,int> current;
+
+    std::queue<std::pair<int, int>> toCheck;
+    std::pair<int, int> offsets[] = {std::make_pair(0, 1), std::make_pair(0, -1), std::make_pair(1, 0), std::make_pair(-1, 0)};
+    std::pair<int, int> current;
     current.first = startx;
     current.second = starty;
     toCheck.push(current);
-    while(!toCheck.empty())
+    while (!toCheck.empty())
     {
+        current = toCheck.front();
+        toCheck.pop();
 
+        // Check if the pixel is already in the connected component
+        if (out.pixels.count(current) > 0) {
+            continue;
+        }
+
+        // Check if the pixel is a valid pixel in the image
+        if (current.first < 0 || current.first >= inputImage.width || current.second < 0 || current.second >= inputImage.height) {
+            continue;
+        }
+
+        // Check if the pixel is part of the connected component
+        if (inputImage(current.first, current.second) == 255)
+        {
+            out.pixels.insert(current);
+            out.pixelCount++;
+
+            // Add neighboring pixels to the queue
+            for (auto p : offsets)
+            {
+                std::pair<int, int> neighbor = std::make_pair(current.first + p.first, current.second + p.second);
+                toCheck.push(neighbor);
+            }
+        }
     }
 
-
-    
-    
+    return out;
 }
