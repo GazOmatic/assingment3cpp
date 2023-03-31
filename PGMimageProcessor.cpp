@@ -126,6 +126,12 @@ bool PGMimageProcessor::writeComponents(const std::string &outFileName) {
     {
         out += c;
     }
+    for(auto p : out.pixels)
+    {
+        inputImage(p.first,p.second) = 255;
+    }
+    save_image(outFileName.c_str(),inputImage);
+    return true;
 }
 
 int PGMimageProcessor::getComponentCount(void) const
