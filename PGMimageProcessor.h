@@ -47,17 +47,17 @@ struct image // Place to hold image
     }
     ~image()
     {
-        free(pixels);
+        free(pixels); // Free the allocated memory
     }
-    operator unsigned char *() const
+    operator unsigned char *() const // When you call image , it returns the pixels
     {
         return pixels;
     }
-    unsigned char &operator()(int x, int y)
+    unsigned char &operator()(int x, int y) // Easy way to refer to a certain pixel
     {
         return pixels[y * width + x];
     }
-    unsigned char &operator()(std::pair<int, int> loc)
+    unsigned char &operator()(std::pair<int, int> loc) // Another way to refer to pixels using a pair value
     {
         return pixels[loc.second * width + loc.first];
     }

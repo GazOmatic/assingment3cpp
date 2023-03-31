@@ -67,6 +67,7 @@ PGMimageProcessor PGMimageProcessor::operator=(PGMimageProcessor &&rhs)
 }
 PGMimageProcessor::~PGMimageProcessor()
 {
+    // The PGMimageprocessor uses the image struct which manages its own memory
 }
 
 int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize)
