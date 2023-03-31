@@ -1,10 +1,11 @@
 #include <set>
+typedef std::set<std::pair<int,int>> setPair;
 class ConnectedComponent
 {
 public:
     int pixelCount;
     int id;
-    std::set<std::pair<int, int>> pixels;
+    setPair pixels;
 
     ConnectedComponent() : pixelCount(0), id(0) {}
 
@@ -21,9 +22,9 @@ public:
         return result;
     }
 };
-std::set<std::pair<int, int>> operator+(std::set<std::pair<int, int>> &lhs, std::set<std::pair<int, int>> &rhs)
+setPair operator+(setPair &lhs, setPair &rhs)
 {
-    std::set<std::pair<int, int>> out;
+    setPair out;
     for (auto x : lhs)
     {
         out.insert(x);
