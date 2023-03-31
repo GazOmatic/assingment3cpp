@@ -91,6 +91,7 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
             if (inputImage(x, y) == 255)
             {
                 search(x, y);
+                print("Started search")
             }
         }
     }
@@ -152,6 +153,7 @@ ConnectedComponent PGMimageProcessor::search(int startx, int starty)
         {
             out.pixels.insert(current);
             out.pixelCount++;
+            inputImage(current) = 0;
 
             // Add neighboring pixels to the queue
             for (auto p : offsets)

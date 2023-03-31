@@ -1,11 +1,11 @@
-#include <unordered_set>
+#include <set>
 class ConnectedComponent
 {
 
 public:
     int pixelCount;
     int id;
-    std::unordered_set<std::pair<int, int>> pixels;
+    std::set<std::pair<int, int>> pixels;
 
-    ConnectedComponent();
+    ConnectedComponent() : pixelCount(0),id(0){}
 };
