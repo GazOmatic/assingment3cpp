@@ -10,6 +10,9 @@ namespace WRBGAR002
     class PGMimageProcessor
     {
 
+        unsigned char *image;
+        int width, height;
+
     public:
         PGMimageProcessor();                                        // Default
         PGMimageProcessor(const std::string filename);              // Custom
