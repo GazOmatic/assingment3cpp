@@ -70,6 +70,7 @@ namespace WRBGAR002
 
     public:
         image inputImage;
+        std::vector<ConnectedComponent> components;
         PGMimageProcessor();                                        // Default
         PGMimageProcessor(const std::string filename);              // Custom
         PGMimageProcessor(const PGMimageProcessor &rhs);            // Copy

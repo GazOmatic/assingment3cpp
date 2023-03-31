@@ -83,26 +83,79 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
         }
     }
     print("Image has been thresholded...");
+    // save_image("thresh2.pgm",inputImage);
 
+    ConnectedComponent a;
     for (int x = 0; x < inputImage.width; ++x)
     {
         for (int y = 0; y < inputImage.height; ++y)
         {
             if (inputImage(x, y) == 255)
             {
-                search(x, y);
-                print("Started search")
+                a = search(x, y);
+                if (a.pixelCount > minValidSize)
+                {
+                    components.push_back(a);
+                }
+                print("Started search");
             }
         }
     }
+    return components.size();
 }
-int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize) {}
+int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
+{
+    std::vector<ConnectedComponent> out;
+    for (auto c : components)
+    {
+        if (c.pixelCount < minSize || c.pixelCount > maxSize)
+        {
+        }
+        else
+        {
+            out.push_back(c);
+        }
+    }
+    components = out;
+    return out.size();
+}
 
-bool PGMimageProcessor::writeComponents(const std::string &outFileName) {}
+bool PGMimageProcessor::writeComponents(const std::string &outFileName) {
+    ConnectedComponent out;
+    for(auto c : components)
+    {
+        out += c;
+    }
+}
 
-int PGMimageProcessor::getComponentCount(void) const {}
-int PGMimageProcessor::getLargestSize(void) const {}
-int PGMimageProcessor::getSmallestSize(void) const {}
+int PGMimageProcessor::getComponentCount(void) const
+{
+    return components.size();
+}
+int PGMimageProcessor::getLargestSize(void) const
+{
+    int max = 0;
+    for (auto c : components)
+    {
+        if (c.pixelCount > max)
+        {
+            max = c.pixelCount;
+        }
+    }
+    return max;
+}
+int PGMimageProcessor::getSmallestSize(void) const
+{
+    int min = INT32_MAX;
+    for (auto c : components)
+    {
+        if (c.pixelCount < min)
+        {
+            min = c.pixelCount;
+        }
+    }
+    return min;
+}
 
 void PGMimageProcessor::printComponentData(const ConnectedComponent &theComponent) const {}
 void PGMimageProcessor::save_image(const char *filename, const image &img)
@@ -139,12 +192,14 @@ ConnectedComponent PGMimageProcessor::search(int startx, int starty)
         toCheck.pop();
 
         // Check if the pixel is already in the connected component
-        if (out.pixels.count(current) > 0) {
+        if (out.pixels.count(current) > 0)
+        {
             continue;
         }
 
         // Check if the pixel is a valid pixel in the image
-        if (current.first < 0 || current.first >= inputImage.width || current.second < 0 || current.second >= inputImage.height) {
+        if (current.first < 0 || current.first >= inputImage.width || current.second < 0 || current.second >= inputImage.height)
+        {
             continue;
         }
 
