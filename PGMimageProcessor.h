@@ -71,6 +71,7 @@ namespace WRBGAR002
     public:
         image inputImage;
         std::vector<ConnectedComponent> components;
+
         PGMimageProcessor();                                        // Default
         PGMimageProcessor(const std::string filename);              // Custom
         PGMimageProcessor(const PGMimageProcessor &rhs);            // Copy
@@ -78,17 +79,12 @@ namespace WRBGAR002
         PGMimageProcessor &operator=(const PGMimageProcessor &rhs); // Copy Assing
         PGMimageProcessor operator=(PGMimageProcessor &&rhs);       // Move assign
         ~PGMimageProcessor();                                       // Destructor
-        void createImage(int width, int height);
         int extractComponents(unsigned char threshold, int minValidSize);
-
         int filterComponentBySize(int minSize, int maxSize);
-
         bool writeComponents(const std::string &outFileName);
-
         int getComponentCount(void) const;
         int getLargestSize(void) const;
         int getSmallestSize(void) const;
-
         void printComponentData(const ConnectedComponent &theComponent) const;
         void save_image(const char *filename, const image &img);
         ConnectedComponent search(int startx, int starty);
