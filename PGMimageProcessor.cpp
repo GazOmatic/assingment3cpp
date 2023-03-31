@@ -52,6 +52,7 @@ PGMimageProcessor::PGMimageProcessor(const std::string filename)
             }
         }
     }
+    file.close();
 }
 PGMimageProcessor::PGMimageProcessor(const PGMimageProcessor &rhs)
 {

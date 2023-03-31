@@ -2,4 +2,4 @@ findcomp: driver.cpp PGMimageProcessor.cpp PGMimageProcessor.h ConnectedComponen
 	g++ driver.cpp -o findcomp -std=c++20
 
 clean:
-	rm findcomp;rm driver
+	rm findcomp;rm driver; rm heaptrack*
