@@ -1,5 +1,5 @@
-findcomp: PGMimageProcessor.cpp PGMimageProcessor.h ConnectedComponent.cpp
-	g++ PGMimageProcessor.cpp -o findcomp -std=c++20
+findcomp: driver.cpp PGMimageProcessor.cpp PGMimageProcessor.h ConnectedComponent.cpp
+	g++ driver.cpp -o findcomp -std=c++20
 
 clean:
 	rm findcomp
