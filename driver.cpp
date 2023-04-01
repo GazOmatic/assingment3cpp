@@ -9,6 +9,7 @@ int main(int argc, char const *argv[])
     int thresh = 128;
     std::string outfilename = "out.pgm";
     bool minMax = false;
+    std::string filename = "";
 
     if (argc == 1)
     {
@@ -42,11 +43,17 @@ int main(int argc, char const *argv[])
         if (arg == "-p")
         {
         }
+        if (arg.find('.') != -1)
+        {
+            filename = arg;
+        }
+    }
+    if (filename == "")
+    {
+        print("No input file provided..");
+        return 0;
     }
 
-    // Taking in filename to open
-    std::string filename = argv[argc-1];
-    
     PGMimageProcessor h = PGMimageProcessor(filename);
 
     h.extractComponents(thresh, min);

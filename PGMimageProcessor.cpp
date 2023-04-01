@@ -62,6 +62,7 @@ PGMimageProcessor::PGMimageProcessor(PGMimageProcessor &&rhs)
 }
 PGMimageProcessor &PGMimageProcessor::operator=(const PGMimageProcessor &rhs)
 {
+    return *this;
 }
 PGMimageProcessor PGMimageProcessor::operator=(PGMimageProcessor &&rhs)
 {
@@ -78,14 +79,13 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
         if (inputImage[i] > threshold)
         {
             inputImage[i] = 255;
-        }       
+        }
         else
         {
             inputImage[i] = 0;
         }
     }
 
-    save_image("thresh.pgm", inputImage);
     print("Image has been thresholded...");
     // save_image("thresh2.pgm",inputImage);
 
