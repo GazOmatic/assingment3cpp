@@ -6,6 +6,7 @@
 #include <string.h>
 #include "ConnectedComponent.cpp"
 #define print(x) std::cout << x << std::endl;
+#define log(x) std::clog << x << std::endl;
 
 struct image // Place to hold image
 {

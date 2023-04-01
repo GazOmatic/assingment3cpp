@@ -78,12 +78,14 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
         if (inputImage[i] > threshold)
         {
             inputImage[i] = 255;
-        }
+        }       
         else
         {
             inputImage[i] = 0;
         }
     }
+
+    save_image("thresh.pgm", inputImage);
     print("Image has been thresholded...");
     // save_image("thresh2.pgm",inputImage);
 
@@ -92,6 +94,8 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
     {
         for (int y = 0; y < inputImage.height; ++y)
         {
+            // log(inputImage(x,y));
+            // print(inputImage(x,y));
             if (inputImage(x, y) == 255)
             {
                 a = search(x, y);
@@ -99,7 +103,6 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
                 {
                     components.push_back(a);
                 }
-                print("Started search");
             }
         }
     }
@@ -122,17 +125,18 @@ int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
     return out.size();
 }
 
-bool PGMimageProcessor::writeComponents(const std::string &outFileName) {
+bool PGMimageProcessor::writeComponents(const std::string &outFileName)
+{
     ConnectedComponent out;
-    for(auto c : components)
+    for (auto c : components)
     {
         out += c;
     }
-    for(auto p : out.pixels)
+    for (auto p : out.pixels)
     {
-        inputImage(p.first,p.second) = 255;
+        inputImage(p.first, p.second) = 255;
     }
-    save_image(outFileName.c_str(),inputImage);
+    save_image(outFileName.c_str(), inputImage);
     return true;
 }
 
