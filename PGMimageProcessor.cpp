@@ -56,16 +56,31 @@ PGMimageProcessor::PGMimageProcessor(const std::string filename)
 }
 PGMimageProcessor::PGMimageProcessor(const PGMimageProcessor &rhs)
 {
+    this->inputImage = rhs.inputImage;
+    this->components = rhs.components;
 }
 PGMimageProcessor::PGMimageProcessor(PGMimageProcessor &&rhs)
 {
+    this->inputImage = std::move(inputImage);
+    this->components = std::move(components);
 }
 PGMimageProcessor &PGMimageProcessor::operator=(const PGMimageProcessor &rhs)
 {
+    if(this!=&rhs)
+    {
+        inputImage = rhs.inputImage;
+        components = rhs.components;
+    }
     return *this;
 }
 PGMimageProcessor PGMimageProcessor::operator=(PGMimageProcessor &&rhs)
 {
+    if (this != &rhs)
+    {
+        inputImage = std::move(rhs.inputImage);
+        components = std::move(rhs.components);
+    }
+    return *this;
 }
 PGMimageProcessor::~PGMimageProcessor()
 {
