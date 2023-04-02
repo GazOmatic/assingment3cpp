@@ -10,7 +10,7 @@ PGMimageProcessor::PGMimageProcessor()
 PGMimageProcessor::PGMimageProcessor(const std::string filename)
 {
     int width, height;
-    
+
     std::ifstream file(filename, std::ios::binary);
     if (file.is_open())
     {
@@ -107,6 +107,7 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
     // save_image("thresh2.pgm",inputImage);
 
     ConnectedComponent a;
+
     for (int x = 0; x < inputImage.width; ++x)
     {
         for (int y = 0; y < inputImage.height; ++y)
@@ -142,11 +143,11 @@ int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
     {
         if (comp.pixelCount < minSize || comp.pixelCount > maxSize)
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     };
 
@@ -201,7 +202,18 @@ int PGMimageProcessor::getSmallestSize(void) const
     return min;
 }
 
-void PGMimageProcessor::printComponentData(const ConnectedComponent &theComponent) const {}
+void PGMimageProcessor::printComponentData(const ConnectedComponent &theComponent) const
+{
+    print(theComponent.id << "\t" << theComponent.pixelCount);
+}
+void PGMimageProcessor::printData(void)
+{
+    print("ID\tPixelCount");
+    for (auto c : components)
+    {
+        printComponentData(c);
+    }
+}
 void PGMimageProcessor::save_image(const char *filename, const image &img)
 {
     // Open the output file
