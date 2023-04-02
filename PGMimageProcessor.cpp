@@ -2,6 +2,7 @@
 #include "ConnectedComponent.h"
 #include <iostream>
 #include <queue>
+#include <algorithm>
 
 PGMimageProcessor::PGMimageProcessor()
 {
@@ -9,6 +10,7 @@ PGMimageProcessor::PGMimageProcessor()
 PGMimageProcessor::PGMimageProcessor(const std::string filename)
 {
     int width, height;
+    
     std::ifstream file(filename, std::ios::binary);
     if (file.is_open())
     {
@@ -66,7 +68,7 @@ PGMimageProcessor::PGMimageProcessor(PGMimageProcessor &&rhs)
 }
 PGMimageProcessor &PGMimageProcessor::operator=(const PGMimageProcessor &rhs)
 {
-    if(this!=&rhs)
+    if (this != &rhs)
     {
         inputImage = rhs.inputImage;
         components = rhs.components;
@@ -121,23 +123,38 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
             }
         }
     }
+    print("Found " << components.size() << " components.");
     return components.size();
 }
 int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
 {
-    std::vector<ConnectedComponent> out;
-    for (auto c : components)
+    // for (auto c : components)
+    // {
+    //     if (c.pixelCount < minSize || c.pixelCount > maxSize)
+    //     {
+    //     }
+    //     else
+    //     {
+    //         out.push_back(c);
+    //     }
+    // }
+    auto lamb = [&](const ConnectedComponent &comp)
     {
-        if (c.pixelCount < minSize || c.pixelCount > maxSize)
+        if (comp.pixelCount < minSize || comp.pixelCount > maxSize)
         {
+            return false;
         }
         else
         {
-            out.push_back(c);
+            return true;
         }
-    }
-    components = out;
-    return out.size();
+    };
+
+    auto newEnd = std::remove_if(components.begin(), components.end(), lamb);
+
+    components.erase(newEnd, components.end());
+
+    return components.size();
 }
 
 bool PGMimageProcessor::writeComponents(const std::string &outFileName)
