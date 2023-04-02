@@ -129,26 +129,9 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
 }
 int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
 {
-    // for (auto c : components)
-    // {
-    //     if (c.pixelCount < minSize || c.pixelCount > maxSize)
-    //     {
-    //     }
-    //     else
-    //     {
-    //         out.push_back(c);
-    //     }
-    // }
     auto lamb = [&](const ConnectedComponent &comp)
     {
-        if (comp.pixelCount < minSize || comp.pixelCount > maxSize)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (comp.pixelCount < minSize || comp.pixelCount > maxSize) ? true : false;
     };
 
     auto newEnd = std::remove_if(components.begin(), components.end(), lamb);
