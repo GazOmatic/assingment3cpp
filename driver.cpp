@@ -1,6 +1,5 @@
 #include "PGMimageProcessor.cpp"
 
-using namespace WRBGAR002;
 int main(int argc, char const *argv[])
 {
     // Default values
