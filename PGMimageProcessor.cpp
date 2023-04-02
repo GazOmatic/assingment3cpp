@@ -1,7 +1,7 @@
 #include "PGMimageProcessor.h"
+#include "ConnectedComponent.h"
 #include <iostream>
 #include <queue>
-using namespace WRBGAR002;
 
 PGMimageProcessor::PGMimageProcessor()
 {
