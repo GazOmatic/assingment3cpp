@@ -8,8 +8,10 @@ int main(int argc, char const *argv[])
     int thresh = 128;
     std::string outfilename = "out.pgm";
     bool minMax = false;
+    bool printData = false;
     std::string filename = "";
 
+    // Help menu
     if (argc == 1)
     {
         print("-- FindComponents --");
@@ -41,8 +43,9 @@ int main(int argc, char const *argv[])
         }
         if (arg == "-p")
         {
+            printData = true;
         }
-        if (arg.find('.') != -1)
+        if (arg.find(".pgm") != -1) // Finding the filename
         {
             filename = arg;
         }
@@ -61,9 +64,11 @@ int main(int argc, char const *argv[])
     {
         h.filterComponentBySize(min, max);
     }
-
+    if (printData)
+    {
+        h.printData();
+    }
     h.writeComponents(outfilename);
 
-    print(h.components.size());
     return 0;
 }
