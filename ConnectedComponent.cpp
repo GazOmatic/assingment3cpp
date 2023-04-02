@@ -1,10 +1,12 @@
 #include "ConnectedComponent.h"
 #define CC ConnectedComponent
 
+int CC::idCount = 0;
 CC::CC()
 {
     pixelCount = 0;
-    id = 0;
+    id = idCount;
+    idCount++;
     setPair pixels;
 }
 CC::CC(const CC &rhs) : pixelCount(rhs.pixelCount), id(rhs.id), pixels(rhs.pixels) {}

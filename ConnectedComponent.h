@@ -6,6 +6,7 @@ typedef std::set<std::pair<int, int>> setPair;
 class ConnectedComponent
 {
 public:
+    static int idCount;
     int pixelCount;
     int id;
     setPair pixels;
