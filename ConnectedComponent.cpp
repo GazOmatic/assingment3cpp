@@ -45,6 +45,9 @@ CC CC::operator+(const CC &rhs) const
     result += rhs;
     return result;
 }
+bool CC::operator<(const CC& rhs) const{
+    return pixelCount < rhs.pixelCount;
+}
 
 // Easy way to add pairs together
 setPair operator+(setPair &lhs, setPair &rhs)

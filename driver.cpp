@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
 
     PGMimageProcessor h = PGMimageProcessor(filename);
 
-    h.extractComponents(thresh, min);
+    h.extractComponents(thresh, min); // Extracts the components and sorts them from smallest to biggest
 
     if (minMax)
     {

@@ -18,4 +18,6 @@ public:
     ~ConnectedComponent(){};
     ConnectedComponent &operator+=(const ConnectedComponent &rhs);
     ConnectedComponent operator+(const ConnectedComponent &rhs) const;
+    bool operator<(const ConnectedComponent &rhs) const;
+
 };

@@ -125,6 +125,7 @@ int PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSi
         }
     }
     print("Found " << components.size() << " components.");
+    std::sort(components.begin(),components.end());
     return components.size();
 }
 int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
@@ -144,10 +145,12 @@ int PGMimageProcessor::filterComponentBySize(int minSize, int maxSize)
 bool PGMimageProcessor::writeComponents(const std::string &outFileName)
 {
     ConnectedComponent out;
+    // Add all of the connected components together.
     for (auto c : components)
     {
         out += c;
     }
+    // Once added iterate through all of the pixels and add it to the original input image
     for (auto p : out.pixels)
     {
         inputImage(p.first, p.second) = 255;
@@ -247,7 +250,7 @@ ConnectedComponent PGMimageProcessor::search(int startx, int starty)
         {
             out.pixels.insert(current);
             out.pixelCount++;
-            inputImage(current) = 0;
+            inputImage(current) = 0; // Make current pixel black
 
             // Add neighboring pixels to the queue
             for (auto p : offsets)
