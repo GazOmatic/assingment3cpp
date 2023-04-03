@@ -1,17 +1,17 @@
 #include "ConnectedComponent.h"
-#define CC ConnectedComponent
 
-int CC::idCount = 0;
-CC::CC()
+
+int ConnectedComponent::idCount = 0;
+ConnectedComponent::ConnectedComponent()
 {
     pixelCount = 0;
     id = idCount;
     idCount++;
     setPair pixels;
 }
-CC::CC(const CC &rhs) : pixelCount(rhs.pixelCount), id(rhs.id), pixels(rhs.pixels) {}
+ConnectedComponent::ConnectedComponent(const ConnectedComponent &rhs) : pixelCount(rhs.pixelCount), id(rhs.id), pixels(rhs.pixels) {}
 
-CC &CC::operator=(const CC &rhs)
+ConnectedComponent &ConnectedComponent::operator=(const ConnectedComponent &rhs)
 {
     if (this != &rhs)
     {
@@ -21,9 +21,9 @@ CC &CC::operator=(const CC &rhs)
     }
     return *this;
 }
-CC::CC(CC &&rhs) : pixelCount(rhs.pixelCount), id(rhs.id), pixels(std::move(rhs.pixels)) {}
+ConnectedComponent::ConnectedComponent(ConnectedComponent &&rhs) : pixelCount(rhs.pixelCount), id(rhs.id), pixels(std::move(rhs.pixels)) {}
 
-CC &CC::operator=(CC &&rhs)
+ConnectedComponent &ConnectedComponent::operator=(ConnectedComponent &&rhs)
 {
     if (this != &rhs)
     {
@@ -33,19 +33,20 @@ CC &CC::operator=(CC &&rhs)
     }
     return *this;
 }
-CC &CC::operator+=(const CC &rhs)
+ConnectedComponent &ConnectedComponent::operator+=(const ConnectedComponent &rhs)
 {
     this->pixelCount += rhs.pixelCount;
     this->pixels.insert(rhs.pixels.begin(), rhs.pixels.end());
     return *this;
 }
-CC CC::operator+(const CC &rhs) const
+ConnectedComponent ConnectedComponent::operator+(const ConnectedComponent &rhs) const
 {
-    CC result = *this;
+    ConnectedComponent result = *this;
     result += rhs;
     return result;
 }
-bool CC::operator<(const CC& rhs) const{
+bool ConnectedComponent::operator<(const ConnectedComponent &rhs) const
+{
     return pixelCount < rhs.pixelCount;
 }
 
