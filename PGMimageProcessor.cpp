@@ -1,5 +1,4 @@
 #include "PGMimageProcessor.h"
-#include "ConnectedComponent.h"
 #include <iostream>
 #include <queue>
 #include <algorithm>
