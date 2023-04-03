@@ -164,27 +164,28 @@ int PGMimageProcessor::getComponentCount(void) const
 }
 int PGMimageProcessor::getLargestSize(void) const
 {
-    int max = 0;
-    for (auto c : components)
-    {
-        if (c.pixelCount > max)
-        {
-            max = c.pixelCount;
-        }
-    }
-    return max;
+    // int max = 0;
+    // for (auto c : components)
+    // {
+    //     if (c.pixelCount > max)
+    //     {
+    //         max = c.pixelCount;
+    //     }
+    // }
+    // Already sorted
+    return components.back().pixelCount;
 }
 int PGMimageProcessor::getSmallestSize(void) const
 {
-    int min = INT32_MAX;
-    for (auto c : components)
-    {
-        if (c.pixelCount < min)
-        {
-            min = c.pixelCount;
-        }
-    }
-    return min;
+    // int min = INT32_MAX;
+    // for (auto c : components)
+    // {
+    //     if (c.pixelCount < min)
+    //     {
+    //         min = c.pixelCount;
+    //     }
+    // }
+    return components.front().pixelCount;
 }
 
 void PGMimageProcessor::printComponentData(const ConnectedComponent &theComponent) const
